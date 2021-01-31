@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>COVID-19 Health App</title>
+        <script src="index.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+        <script src="/node_modules/chart.js/dist/Chart.js"></script>
+        <script src="/points.js"></script>
+    </head>
+    <body>
+        <h1>COVID-19 Health</h1>
+        <div class="nav">
+            <a href="./index.html">Home</a>
+            <a href="./health.html">My Health</a>
+            <a href="./points.html">Points</a>
+            <a href="https://www.ontario.ca/page/covid-19-stop-spread" target="_blank">Guidelines</a>
+        </div>
+        <div class='display'>
+            <div class='display'>
+                <div class="item" style="background-color: rgba(118, 216, 255, 0.9);">
+                    <div class="main" id="totalPoints"></div>
+                    <div class="sub">Points</div>
+                </div>
+                <div class="item" style="background-color: rgba(255, 118, 221, 0.9);">
+                    <div class="main" id="pointsAddedToday"></div>
+                    <div class="sub">Today</div>
+                </div>
+            </div>
+            <button onclick="setHome()">Set home to current location.</button>
+        </div>
+    </body>
+    <script>scorePoints()</script>
+</html>

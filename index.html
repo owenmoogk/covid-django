@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>COVID-19 Health App</title>
+        <script src="index.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1>COVID-19 Health</h1>
+        <div class="nav">
+            <a href="./index.html">Home</a>
+            <a href="./health.html">My Health</a>
+            <a href="./points.html">Points</a>
+            <a href="https://www.ontario.ca/page/covid-19-stop-spread" target="_blank">Guidelines</a>
+        </div>
+        <div class='display'>
+            <div class="item" style="background-color: rgba(118, 200, 255, 0.9);">
+                <div class="main">103 M</div>
+                <div class="sub">Cases</div>
+            </div>
+            <div class="item" style="background-color: rgba(255, 118, 118, 0.9);">
+                <div class="main">2.2 M</div>
+                <div class="sub">Deaths</div>
+            </div>
+            <div class="item" style="background-color: rgba(180, 255, 118, 0.9);">
+                <div class="main" id="points"></div>
+                <div class="sub">Points</div>
+            </div>
+            <div class="item" style="background-color: rgba(255, 234, 118, 0.9);">
+                <div class="main" id="pointsToday"></div>
+                <div class="sub">Points Today</div>
+            </div>
+        </div>
+    </body>
+    <script>populateHomeScreen()</script>
+</html>
