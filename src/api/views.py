@@ -1,13 +1,14 @@
 from django.shortcuts import render
-import requests, json
-from threading import *
 from .models import Data
-# Create your views here.
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from bs4 import BeautifulSoup 
+import requests
+from django.utils.timezone import datetime
 
 # helper for covid stuff
 def getNums():
-    from bs4 import BeautifulSoup
-    import time, urllib.request, requests
 
     url = "https://www.worldometers.info/coronavirus/"
     response = requests.get(url)
@@ -29,15 +30,19 @@ def getNums():
     data.deaths = numbers[1]
     data.recovered = numbers[2]
     data.save()
-    print("i got here")
+    return
 
-def homeView(request):
-    t1 = Thread(target=getNums)
-    t1.start()
+@api_view(['GET'])
+def getData(request):
+
+    # if the data has not been updated today then we need to do so.
     data = Data.objects.all()[0]
+    if not str(data.lastUpdated) in str(datetime.today()):  
+        getNums()
+
     context = {
         "cases": data.cases,
         "deaths": data.deaths,
         "recovered": data.recovered
     }
-    return render(request, "home.html", context)
+    return Response(context, status=status.HTTP_200_OK)
