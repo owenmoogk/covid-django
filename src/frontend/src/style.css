@@ -1,10 +1,8 @@
 *{
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: lighter;
-    color: white;
 }
 body{
-    /* background-image: url("/assets/homepage.jpg"); */
     background-color: grey;
     background-repeat: no-repeat;
     background-size: cover;
@@ -75,9 +73,6 @@ h1{
     align-items: center;
     font-weight: bold;
 }
-canvas{
-    color: white;
-}
 button{
     color: black;
     width: 250px;
@@ -100,4 +95,8 @@ input{
 }
 .input p{
     width: fit-content;
+}
+#chartContainer{
+    width: fit-content;
+    margin: auto;
 }
