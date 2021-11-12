@@ -84,6 +84,7 @@ button{
 }
 input{
     color: black;
+    margin: auto;
 }
 .input{
     display: flex;
