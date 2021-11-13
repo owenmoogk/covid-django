@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     LineChart,
     Line,
@@ -11,11 +11,30 @@ import {
 export default function Health(props) {
 
     const [alert, setAlert] = useState()
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        fetch('/users/healthData/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            setData(json['data'])
+            console.log(json['data'])
+        })
+    }, [])
 
     function logTemp() {
         var temp = document.getElementById("tempInput").value
+        document.getElementById('tempInput').value = ''
         temp = parseInt(temp)
-        console.log(temp)
+        function isFloat(n) {
+            return Number(n) == n && n % 1 == 0
+        }
         if (Number.isInteger(temp) || isFloat(temp)) {
             if (temp > 100.4) {
                 setAlert("That is a high temperature. Please have a look at public health guidelines for next steps.")
@@ -25,19 +44,27 @@ export default function Health(props) {
                 setAlert("This is a very cold temperature. You may have hypothermia. Retake temperature for source of errors, and if you still have a low temperature consider contacting a doctor.")
                 return
             }
-            // MAKE THE REQUEST TO PUSH DATA HERE
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            var date = mm + '/' + dd + '/' + yyyy;
+            date = '11/15/2021'
+            fetch('/users/healthData/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `JWT ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({"date": date, "temperature": temp})
+            })
+            .then(response => response.json())
+            .then(json => setData(json['data']))
         }
         else {
             setAlert("Please enter a valid number.")
         }
     }
-
-    function isFloat(n) {
-        return Number(n) == n && n % 1 == 0
-    }
-
-
-    const data = [{ name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }, { name: 'Day 1', temperature: 98.6 }]
 
     return (
         <>
@@ -45,8 +72,8 @@ export default function Health(props) {
                 <LineChart width={900} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                     <Line type="monotone" dataKey="temperature" stroke="#ff0000" />
                     <CartesianGrid stroke="#ccc" />
-                    <XAxis tick={{ fill: 'white' }} />
-                    <YAxis tick={{ fill: 'white' }} domain={[95, 101]} />
+                    <XAxis tick={{ fill: 'black' }} dataKey={'date'}/>
+                    <YAxis tick={{ fill: 'black' }} domain={[95, 101]} />
                     <Tooltip style={{ color: 'black' }} />
                 </LineChart>
             </div>

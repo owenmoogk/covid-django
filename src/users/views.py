@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-
+from rest_framework.permissions import IsAuthenticated
+from .models import UserHealth
 
 @api_view(['GET'])
 def current_user(request):
@@ -35,3 +36,32 @@ class Signup(APIView):
         
         return Response({'token': token, 'username': new_user.username})
         
+
+class HealthData(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+
+        try:
+            request.data['date']
+            request.data['temperature']
+        except:
+            return Response({"Status": "Please submit data with a DATE and TEMPERATURE"}, status=status.HTTP_200_OK)
+        try:
+            userHealth = UserHealth.objects.get(owner = request.user)
+            userHealthData = userHealth.data
+            userHealthData.append(request.data)
+            userHealth.save()
+        except:
+            userHealth = UserHealth.objects.create(owner = request.user, data = [request.data])
+            userHealthData = userHealth.data
+        print(userHealthData)
+        return Response({'data': userHealthData}, status=status.HTTP_200_OK)\
+
+    def get(self, request, format=None):
+        try:
+            userHealthData = UserHealth.objects.get(owner = request.user).data
+            print(userHealthData)
+            return Response({'data': userHealthData}, status=status.HTTP_200_OK)
+        except:
+            return Response({'data': {}}, status=status.HTTP_200_OK)
