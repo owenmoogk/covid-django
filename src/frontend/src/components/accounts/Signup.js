@@ -38,7 +38,7 @@ export default function Signup(props) {
                 : null
             }
             <form onSubmit={e => handleSignup(e)}>
-                <h4>Sign Up</h4>
+                <h2>Sign Up</h2>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -46,6 +46,7 @@ export default function Signup(props) {
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                 />
+                <br />
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -53,9 +54,10 @@ export default function Signup(props) {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                <br />
                 <input type="submit" />
             </form>
-            <p>{message}</p>
+            <p style={{textAlign: 'center'}}>{message}</p>
         </>
     );
 }

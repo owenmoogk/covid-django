@@ -38,7 +38,7 @@ export default function LoginForm(props) {
                 : null
             }
             <form onSubmit={e => handleLogin(e)}>
-                <h4>Log In</h4>
+                <h2>Log In</h2>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -46,6 +46,7 @@ export default function LoginForm(props) {
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                 />
+                <br />
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -53,9 +54,10 @@ export default function LoginForm(props) {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                <br />
                 <input type="submit" />
             </form>
-            <p>{message}</p>
+            <p style={{textAlign: 'center'}}>{message}</p>
         </>
     );
 }
