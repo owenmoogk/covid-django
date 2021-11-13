@@ -7,7 +7,6 @@ import {
 import './style.css'
 import Homepage from './components/Homepage'
 import Health from './components/Health'
-import Points from './components/Points'
 import Nav from './components/Nav';
 import Login from './components/accounts/Login'
 import Signup from './components/accounts/Signup'
@@ -56,11 +55,6 @@ export default function App() {
 				{loggedIn ?
 					<Route path='/health'>
 						<Health />
-					</Route>
-					: null}
-				{loggedIn ?
-					<Route path='/points'>
-						<Points />
 					</Route>
 					: null
 				}

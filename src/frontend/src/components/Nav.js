@@ -8,7 +8,6 @@ export default function Nav(props) {
             {props.loggedIn
                 ? <>
                     <a href="/health">My Health</a>
-                    <a href="/points">Points</a>
                     <a href='' onClick={() => props.logout()}>Logout ({props.username})</a>
                 </>
                 : <>

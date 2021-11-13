@@ -21,14 +21,6 @@ export default function Homepage(props){
                 <div className="main">{data.deaths}</div>
                 <div className="sub">Deaths</div>
             </div>
-            <div className="item" style={{backgroundColor: "rgba(180, 255, 118, 0.9)"}}>
-                <div className="main" id="points"></div>
-                <div className="sub">Points</div>
-            </div>
-            <div className="item" style={{backgroundColor: "rgba(255, 234, 118, 0.9)"}}>
-                <div className="main" id="pointsToday"></div>
-                <div className="sub">Points Today</div>
-            </div>
         </div>
         :null
     )
