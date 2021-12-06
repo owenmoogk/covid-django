@@ -24,7 +24,6 @@ export default function Health(props) {
         .then(response => response.json())
         .then(json => {
             setData(json['data'])
-            console.log(json['data'])
         })
     }, [])
 
@@ -49,7 +48,6 @@ export default function Health(props) {
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
             var date = mm + '/' + dd + '/' + yyyy;
-            date = '11/15/2021'
             fetch('/users/healthData/', {
                 method: 'POST',
                 headers: {

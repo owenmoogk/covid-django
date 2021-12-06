@@ -55,13 +55,11 @@ class HealthData(APIView):
         except:
             userHealth = UserHealth.objects.create(owner = request.user, data = [request.data])
             userHealthData = userHealth.data
-        print(userHealthData)
         return Response({'data': userHealthData}, status=status.HTTP_200_OK)\
 
     def get(self, request, format=None):
         try:
             userHealthData = UserHealth.objects.get(owner = request.user).data
-            print(userHealthData)
             return Response({'data': userHealthData}, status=status.HTTP_200_OK)
         except:
             return Response({'data': {}}, status=status.HTTP_200_OK)
